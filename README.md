@@ -2,6 +2,11 @@
 
 这是一个以 9 个月为周期的雅思备考项目，目标分数为 7.5。计划按总纲、月度执行方案和学习成果模版分层整理，便于持续补充和复盘。
 
+## 在线阅读
+
+- [打开雅思学习计划网页](https://liyongzheng666.github.io/ielts-study-plan/)
+- [访问 Ally 的个人博客](https://liyongzheng666.github.io/)
+
 ## 目录
 
 ### 总计划
