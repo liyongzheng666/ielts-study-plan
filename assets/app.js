@@ -14,6 +14,10 @@ const documents = {
   template: {
     label: "学习成果模版",
     path: "学习模版/ielts-study-outcome-example.md"
+  },
+  "polar-bears": {
+    label: "成果示范 · 北极熊",
+    path: "学习模版/ielts-study-outcome-polar-bears.md"
   }
 };
 

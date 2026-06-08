@@ -21,6 +21,7 @@
 ### 学习模版
 
 - [学习成果示范：一篇文章应该被“榨”成什么样](学习模版/ielts-study-outcome-example.md)
+- [学习成果示范 · 北极熊篇：把一篇真题段落“榨”干](学习模版/ielts-study-outcome-polar-bears.md)
 
 ## 使用方式
 
