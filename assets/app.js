@@ -18,6 +18,10 @@ const documents = {
   "polar-bears": {
     label: "成果示范 · 北极熊",
     path: "学习模版/ielts-study-outcome-polar-bears.md"
+  },
+  "week1-mon": {
+    label: "学习记录 · 第1周周一",
+    path: "学习记录/第1周-周一.md"
   }
 };
 
