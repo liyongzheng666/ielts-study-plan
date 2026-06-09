@@ -18,16 +18,38 @@ const documents = {
   "polar-bears": {
     label: "成果示范 · 北极熊",
     path: "学习模版/ielts-study-outcome-polar-bears.md"
-  },
-  "week1-mon": {
-    label: "学习记录 · 第1周周一",
-    path: "学习记录/第1周-周一.md"
   }
 };
 
+// 学习记录的层级数据：按月分组，月内按天。加一天就在对应月份的 days 里追加一项。
+const studyRecords = [
+  {
+    month: "第一个月",
+    days: [
+      { day: 1, path: "学习记录/第一个月/第1天.md" }
+    ]
+  }
+];
+
+// 把每天的记录摊平进 documents，使其与固定文档共用 loadDocument / fetch / 链接解析。
+function recordKey(monthIndex, day) {
+  return `rec-m${monthIndex + 1}-d${day}`;
+}
+studyRecords.forEach((group, monthIndex) => {
+  group.days.forEach(entry => {
+    documents[recordKey(monthIndex, entry.day)] = {
+      label: `学习记录 · ${group.month}第${entry.day}天`,
+      path: entry.path
+    };
+  });
+});
+
 const content = document.querySelector("#doc-content");
 const toc = document.querySelector("#doc-toc");
-const tabs = [...document.querySelectorAll(".doc-tab")];
+const tabs = [...document.querySelectorAll(".doc-tab[data-doc]")];
+const recordDropdown = document.querySelector("#record-dropdown");
+const recordToggle = document.querySelector("#record-toggle");
+const recordMenu = document.querySelector("#record-menu");
 
 function escapeHtml(value) {
   return value
@@ -38,8 +60,11 @@ function escapeHtml(value) {
 }
 
 function documentKeyForLink(href) {
-  const filename = decodeURIComponent(href.split("/").pop());
-  return Object.entries(documents).find(([, doc]) => doc.path.endsWith(filename))?.[0];
+  const parts = decodeURIComponent(href).split("/").filter(Boolean);
+  const tail2 = parts.slice(-2).join("/");
+  const filename = parts[parts.length - 1];
+  return Object.entries(documents).find(([, doc]) => doc.path.endsWith(tail2))?.[0]
+    ?? Object.entries(documents).find(([, doc]) => doc.path.endsWith(filename))?.[0];
 }
 
 function renderInline(source) {
@@ -145,7 +170,7 @@ function renderMarkdown(markdown) {
         quote.push(lines[index].replace(/^\s*>\s?/, ""));
         index += 1;
       }
-      output.push(`<blockquote><p>${renderInline(quote.join("<br>"))}</p></blockquote>`);
+      output.push(`<blockquote><p>${quote.map(line => renderInline(line)).join("<br>")}</p></blockquote>`);
       continue;
     }
 
@@ -221,6 +246,20 @@ async function loadDocument(key) {
     tab.classList.toggle("is-active", active);
     tab.setAttribute("aria-selected", String(active));
   });
+
+  const isRecord = typeof key === "string" && key.startsWith("rec-");
+  if (recordToggle) recordToggle.classList.toggle("is-active", isRecord);
+  if (recordMenu) {
+    recordMenu.querySelectorAll(".record-day").forEach(item => {
+      const active = item.dataset.doc === key;
+      item.classList.toggle("is-active", active);
+      if (active) {
+        const month = item.closest(".record-month");
+        if (month) month.open = true;
+      }
+    });
+  }
+
   content.innerHTML = '<div class="loading-card"><span></span><p>正在读取学习计划…</p></div>';
   toc.innerHTML = '<span class="toc-loading">正在整理目录…</span>';
 
@@ -260,7 +299,49 @@ function setupTracker() {
   update();
 }
 
+function renderRecordMenu() {
+  if (!recordMenu) return;
+  recordMenu.innerHTML = studyRecords.map((group, monthIndex) => {
+    const days = group.days.map(entry => {
+      const key = recordKey(monthIndex, entry.day);
+      return `<button class="record-day" type="button" role="menuitem" data-doc="${key}">第 ${entry.day} 天</button>`;
+    }).join("");
+    return `<details class="record-month"${monthIndex === 0 ? " open" : ""}><summary>${escapeHtml(group.month)}</summary><div class="record-day-list">${days}</div></details>`;
+  }).join("") || '<span class="toc-loading">暂无学习记录。</span>';
+}
+
+function setupRecordDropdown() {
+  if (!recordToggle || !recordMenu || !recordDropdown) return;
+
+  function setOpen(open) {
+    recordMenu.hidden = !open;
+    recordToggle.setAttribute("aria-expanded", String(open));
+  }
+
+  recordToggle.addEventListener("click", event => {
+    event.stopPropagation();
+    setOpen(recordMenu.hidden);
+  });
+
+  recordMenu.addEventListener("click", event => {
+    const day = event.target.closest(".record-day");
+    if (!day) return;
+    loadDocument(day.dataset.doc);
+    setOpen(false);
+  });
+
+  document.addEventListener("click", event => {
+    if (!recordDropdown.contains(event.target)) setOpen(false);
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") setOpen(false);
+  });
+}
+
 tabs.forEach(tab => tab.addEventListener("click", () => loadDocument(tab.dataset.doc)));
 document.querySelector("#print-page").addEventListener("click", () => window.print());
+renderRecordMenu();
+setupRecordDropdown();
 setupTracker();
 loadDocument("overview");

@@ -237,6 +237,22 @@ h3 { font-size: 1.18rem; }
 .doc-tab.is-active { border-color: var(--line-strong); background: linear-gradient(180deg, #c7ec87, var(--green)); }
 .print-btn { margin-left: auto; background: var(--blue-soft); }
 
+.record-dropdown { position: relative; }
+.record-toggle .caret { display: inline-block; transition: transform 150ms ease; font-size: .7rem; }
+.record-toggle[aria-expanded="true"] .caret { transform: rotate(180deg); }
+.record-menu { position: absolute; top: calc(100% + 6px); left: 0; z-index: 40; display: grid; gap: 4px; min-width: 220px; max-width: min(280px, 90vw); max-height: 60vh; overflow: auto; padding: 8px; background: var(--paper-soft); border: 2px solid var(--line-strong); border-radius: 10px; box-shadow: var(--shadow); }
+.record-menu[hidden] { display: none; }
+.record-month { border-radius: 8px; }
+.record-month > summary { list-style: none; cursor: pointer; padding: 7px 9px; border-radius: 7px; color: #355329; font-size: .8rem; font-weight: 800; }
+.record-month > summary::-webkit-details-marker { display: none; }
+.record-month > summary::before { content: "▸"; display: inline-block; width: 1em; font-size: .7rem; transition: transform 150ms ease; }
+.record-month[open] > summary::before { transform: rotate(90deg); }
+.record-month > summary:hover { background: var(--green-soft); }
+.record-day-list { display: grid; gap: 3px; padding: 3px 0 5px 14px; }
+.record-day { text-align: left; padding: 6px 9px; border: 2px solid transparent; border-radius: 6px; background: transparent; color: var(--ink); cursor: pointer; font-size: .78rem; font-weight: 700; transition: 150ms ease; }
+.record-day:hover { background: var(--green-soft); }
+.record-day.is-active { border-color: var(--line-strong); background: linear-gradient(180deg, #c7ec87, var(--green)); }
+
 .reader-layout { display: grid; grid-template-columns: 250px minmax(0,1fr); gap: 16px; align-items: start; }
 .reader-nav { position: sticky; top: 108px; max-height: calc(100vh - 130px); overflow: auto; padding: 16px; border: 2px solid var(--line); border-radius: 10px; background: rgba(255,252,238,.9); }
 .reader-nav > strong { display: block; margin-bottom: 10px; color: #355329; }
