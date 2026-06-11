@@ -21,24 +21,26 @@ const documents = {
   }
 };
 
-// 学习记录的层级数据：按月分组，月内按天。加一天就在对应月份的 days 里追加一项。
+// 学习记录的层级数据：按月分组，月内按「学习次数」。加一次就在对应月份的 sessions 里追加一项，
+// label 直接写中文显示名（第一次学习 / 第二次学习），渲染时直接用，无需数字转中文。
 const studyRecords = [
   {
     month: "第一个月",
-    days: [
-      { day: 1, path: "学习记录/第一个月/第1天.md" }
+    sessions: [
+      { session: 1, label: "第一次学习", path: "学习记录/第一个月/第一次学习.md" },
+      { session: 2, label: "第二次学习", path: "学习记录/第一个月/第二次学习.md" }
     ]
   }
 ];
 
-// 把每天的记录摊平进 documents，使其与固定文档共用 loadDocument / fetch / 链接解析。
-function recordKey(monthIndex, day) {
-  return `rec-m${monthIndex + 1}-d${day}`;
+// 把每次记录摊平进 documents，使其与固定文档共用 loadDocument / fetch / 链接解析。
+function recordKey(monthIndex, session) {
+  return `rec-m${monthIndex + 1}-s${session}`;
 }
 studyRecords.forEach((group, monthIndex) => {
-  group.days.forEach(entry => {
-    documents[recordKey(monthIndex, entry.day)] = {
-      label: `学习记录 · ${group.month}第${entry.day}天`,
+  group.sessions.forEach(entry => {
+    documents[recordKey(monthIndex, entry.session)] = {
+      label: `学习记录 · ${group.month}${entry.label}`,
       path: entry.path
     };
   });
@@ -302,11 +304,11 @@ function setupTracker() {
 function renderRecordMenu() {
   if (!recordMenu) return;
   recordMenu.innerHTML = studyRecords.map((group, monthIndex) => {
-    const days = group.days.map(entry => {
-      const key = recordKey(monthIndex, entry.day);
-      return `<button class="record-day" type="button" role="menuitem" data-doc="${key}">第 ${entry.day} 天</button>`;
+    const sessions = group.sessions.map(entry => {
+      const key = recordKey(monthIndex, entry.session);
+      return `<button class="record-day" type="button" role="menuitem" data-doc="${key}">${escapeHtml(entry.label)}</button>`;
     }).join("");
-    return `<details class="record-month"${monthIndex === 0 ? " open" : ""}><summary>${escapeHtml(group.month)}</summary><div class="record-day-list">${days}</div></details>`;
+    return `<details class="record-month"${monthIndex === 0 ? " open" : ""}><summary>${escapeHtml(group.month)}</summary><div class="record-day-list">${sessions}</div></details>`;
   }).join("") || '<span class="toc-loading">暂无学习记录。</span>';
 }
 
