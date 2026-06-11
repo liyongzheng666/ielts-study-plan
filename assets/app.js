@@ -21,14 +21,15 @@ const documents = {
   }
 };
 
-// 学习记录的层级数据：按月分组，月内按「学习次数」。加一次就在对应月份的 sessions 里追加一项，
-// label 直接写中文显示名（第一次学习 / 第二次学习），渲染时直接用，无需数字转中文。
+// 学习记录的层级数据：按月分组，月内按「文章名+剑桥编号」命名（册-Test-Passage-文章名）。
+// 同一篇拆成多次精读时用 part1/part2 区分。加一篇就在对应月份的 sessions 里追加一项，
+// label 直接写显示名，渲染时直接用，无需额外转换。
 const studyRecords = [
   {
     month: "第一个月",
     sessions: [
-      { session: 1, label: "第一次学习", path: "学习记录/第一个月/第一次学习.md" },
-      { session: 2, label: "第二次学习", path: "学习记录/第一个月/第二次学习.md" }
+      { session: 1, label: "C16-T1-P1 北极熊 part1", path: "学习记录/第一个月/C16-T1-P1-北极熊-part1.md" },
+      { session: 2, label: "C16-T1-P1 北极熊 part2", path: "学习记录/第一个月/C16-T1-P1-北极熊-part2.md" }
     ]
   }
 ];

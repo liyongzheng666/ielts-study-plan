@@ -1,8 +1,8 @@
-# 第二次学习记录 · 北极熊篇（下半）：骨密度之谜 + 智力与情感
+# C16 T1 P1《北极熊》part2 · 精读 ¶④–⑧：骨密度之谜 + 智力与情感
 
-> 材料：北极熊真题文章后半（¶④–⑧）｜ 学习时长：50 min ｜ 本周语法=时态体系 · 发音=词重音
+> 材料：剑桥雅思16 Test1 Passage1《Why we need to protect polar bears》后半（¶④–⑧）｜ 学习时长：50 min ｜ 本周语法=时态体系 · 发音=词重音
 > 套用[北极熊样板](../../学习模版/ielts-study-outcome-polar-bears.md)的同一套流程：换材料，流程照跑，产出 7 类成果。
-> 这是接[第一次学习](第一次学习.md)（¶①–③：适应/脂肪、APoB/心脏病、骨质疏松引入）之后的下半段。
+> 上接 [part1](C16-T1-P1-北极熊-part1.md)（¶①–③：适应/脂肪、APoB/心脏病、骨质疏松引入）。
 
 ---
 
@@ -144,7 +144,7 @@ word: extinction
 同义：dying out / disappearance    派生：extinct adj.；go extinct
 例句：If climate change were to lead to their extinction...
 来源：¶8
-用途：环境/物种保护类阅读写作必备（与第一次学习的 threaten / conservation 成组）
+用途：环境/物种保护类阅读写作必备（与 part1 的 threaten / adapt 成组）
 ─────────────────────────────
 ```
 
@@ -300,4 +300,4 @@ breakthroughs；用 "that said" 做让步、"write off" 显语言成熟度；不
   7. 顺带产出一段口语 Part 2 + Part 3
 ```
 
-> 与第一次学习（¶①–③）合起来，整篇北极熊文章就被"榨"干了。下次换任意一篇文章，流程照跑。
+> 与 [part1](C16-T1-P1-北极熊-part1.md)（¶①–③）合起来，整篇 C16 T1 P1 就被"榨"干了。下次换任意一篇文章，流程照跑。
